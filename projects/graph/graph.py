@@ -13,26 +13,35 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        # check that v1 and v2 exist in the vertices dictionary
+        if v1 in self.vertices and v2 in self.vertices:
+          # add v2 to the vertices at v1
+          self.vertices[v1].add(v2)
+          else:
+            # raise an exception and give an error
+            raise IndexError("That vertex does not exist")
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        # # create empty queue
+        # q = Queue()
+        # # enqueue the starting vertex id
+        # q.enqueue(starting_vertex_id)
 
     def dft(self, starting_vertex):
         """
