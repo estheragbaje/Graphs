@@ -23,9 +23,9 @@ class Graph:
         if v1 in self.vertices and v2 in self.vertices:
           # add v2 to the vertices at v1
           self.vertices[v1].add(v2)
-          else:
-            # raise an exception and give an error
-            raise IndexError("That vertex does not exist")
+        else:
+          # raise an exception and give an error
+          raise IndexError("That vertex does not exist")
 
     def get_neighbors(self, vertex_id):
         """
@@ -38,10 +38,28 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        # # create empty queue
-        # q = Queue()
-        # # enqueue the starting vertex id
-        # q.enqueue(starting_vertex_id)
+        # create empty queue
+        q = Queue()
+        # enqueue the starting vertex id
+        q.enqueue(starting_vertex_id)
+        # create a set to store our visited vertices
+        visited = set()
+
+        # while queue is not empty (len is greater than 0)
+        while q.size() > 0:
+          # dequeue the first vertex
+          v = q.dequeue()
+          # if that vertex has not been visited
+          if v not in visited:
+            # mark as visited and print for debugging
+            visited.add(v)
+            print(v) # for debugging
+            # iterate over the child vertices of the current vertex
+            for next_vertex in self.vertices[v]:
+              # enqueue the next vertex
+              q.enqueue(next_vertex)
+
+
 
     def dft(self, starting_vertex):
         """
