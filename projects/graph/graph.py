@@ -115,7 +115,7 @@ class Graph:
               self.dft_recursive(child_vert, visited)
 
 
-    def bfs(self, starting_vertex, destination_vertex):
+    def bfs(self, starting_vertex_id, destination_vertex):
         """
         Return a list containing the shortest path from
         starting_vertex to destination_vertex in
@@ -123,8 +123,8 @@ class Graph:
         """
         # Create an empty queue
         q = Queue()
-        # enqueue A PATH TO the starting vertex 
-        q.enqueue(starting_vertex)
+        # enqueue A PATH TO the starting vertex id 
+        q.enqueue([starting_vertex_id])
         # Create a Set to store visited vertices
         visited = set()
         # While the queue is not empty...
@@ -137,21 +137,19 @@ class Graph:
           if last_vertex not in visited:
             # CHECK IF IT'S THE TARGET
             if last_vertex == destination_vertex:
-              return path
+              return True
             # Mark it as visited...
-            last_vertex in visited
             # Then add A PATH TO its neighbors to the back of the queue
             visited.add(last_vertex)
             for neighbor in self.vertices[last_vertex]:
               # create new path list
               new_path = list(path)
-              # APPEND THE NEIGHBOR TO THE BACK
+              # # APPEND THE NEIGHBOR TO THE BACK
               new_path.append(neighbor)
+              q.enqueue(new_path)
+        return None
 
-
-
-
-
+        
 
     def dfs(self, starting_vertex, destination_vertex):
         """
