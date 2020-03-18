@@ -33,7 +33,7 @@ class Graph:
         """
         return self.vertices[vertex_id]
 
-    def bft(self, starting_vertex):
+    def bft(self, starting_vertex_id):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
@@ -61,7 +61,7 @@ class Graph:
 
 
 
-    def dft(self, starting_vertex):
+    def dft(self, starting_vertex_id):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
@@ -151,7 +151,7 @@ class Graph:
 
         
 
-    def dfs(self, starting_vertex, destination_vertex):
+    def dfs(self, starting_vertex_id, destination_vertex):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
