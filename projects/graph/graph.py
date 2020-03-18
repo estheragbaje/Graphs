@@ -13,6 +13,8 @@ class Graph:
         """
         Add a vertex to the graph.
         """
+        if vertex_id in self.vertices:
+          return
         self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
@@ -20,7 +22,7 @@ class Graph:
         Add a directed edge to the graph.
         """
         # check that v1 and v2 exist in the vertices dictionary
-        if v1 in self.vertices and v2 in self.vertices:
+        if v2 not in self.vertices[v1] and v2 in self.vertices and v1 in self.vertices:
           # add v2 to the vertices at v1
           self.vertices[v1].add(v2)
         else:
@@ -41,21 +43,21 @@ class Graph:
         # create empty queue
         q = Queue()
         # enqueue the starting vertex id
-        q.enqueue(starting_vertex_id)
+        q.enqueue(starting_vertex)
         # create a set to store our visited vertices
         visited = set()
-
         # while queue is not empty (len is greater than 0)
         while q.size() > 0:
           # dequeue the first vertex
-          v = q.dequeue()
+          vertex = q.dequeue()
           # if that vertex has not been visited
-          if v not in visited:
+          if vertex not in visited:
             # mark as visited and print for debugging
-            visited.add(v)
-            print(v) # for debugging
+            visited.add(vertex)
+            print(vertex) # for debugging
             # iterate over the child vertices of the current vertex
-            for next_vertex in self.vertices[v]:
+            neighbors = self.get_neighbors(vertex)
+            for next_vertex in neighbors:
               # enqueue the next vertex
               q.enqueue(next_vertex)
 
@@ -69,12 +71,12 @@ class Graph:
         # create empty stack
         s = Stack()
         # push the starting vertex id
-        s.push(starting_vertex_id)
+        s.push(starting_vertex)
         # create a set to store our visited vertices
         visited = set()
 
         # while stack is not empty (len greater than 0)
-        while s.size > 0 :
+        while s.size() > 0 :
           # pop the first vertex
           v = s.pop()
           # if that vertex has not been visited
@@ -82,13 +84,14 @@ class Graph:
             # mark as visited and print for debugging
             visited.add(v)
             print(v) # for debugging
+            neighbors = self.get_neighbors(v)
             # iterate over the child vertices of the current vertex
-            for next_vertex in self.vertices[v]:
+            for next_vertex in neighbors:
               # push the next vertex
               s.push(next_vertex)
 
 
-    def dft_recursive(self, starting_vertex, visited=None):
+    def dft_recursive(self, starting_vertex, visited=set()):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
@@ -96,23 +99,24 @@ class Graph:
         This should be done using recursion.
         """
         # if the visited structure is set to None
-        if visited is None:
-          # create a new set for visited
-          visited = set()
+        # if visited is None:
+        #   # create a new set for visited
+        #   visited = set()
+
 
           # add a starting vertex to the visited set
-          visited.add(starting_vertex)
+        visited.add(starting_vertex)
 
           # print the start vertex
-          print(starting_vertex)
+        print(starting_vertex)
 
           # loop over every child vertex in vertices set at the start vertex
-          for child_vert in self.vertices[start_vert]:
+        for child_vert in self.vertices[starting_vertex]:
             # if child vertex is not in visited
-            if child_vert not in visited:
+          if child_vert not in visited:
               # do a recursive call to dft_recursive
               # using the child vertex and the current visited set as arguments
-              self.dft_recursive(child_vert, visited)
+            self.dft_recursive(child_vert, visited)
 
 
     def bfs(self, starting_vertex_id, destination_vertex):
@@ -137,7 +141,7 @@ class Graph:
           if last_vertex not in visited:
             # CHECK IF IT'S THE TARGET
             if last_vertex == destination_vertex:
-              return True
+              return path
             # Mark it as visited...
             # Then add A PATH TO its neighbors to the back of the queue
             visited.add(last_vertex)
@@ -147,7 +151,7 @@ class Graph:
               # # APPEND THE NEIGHBOR TO THE BACK
               new_path.append(neighbor)
               q.enqueue(new_path)
-        return None
+        # return None
 
         
 
@@ -173,7 +177,7 @@ class Graph:
           if last_vertex not in visited:
             # CHECK IF IT'S THE TARGET
             if last_vertex == destination_vertex:
-              return True
+              return path
             # Mark it as visited...
             # Then add A PATH TO its neighbors to the back of the stack
             visited.add(last_vertex)
