@@ -164,13 +164,13 @@ class Graph:
         # Create an empty stack
         s = Stack()
         # push A PATH TO the starting vertex id 
-        s.push([starting_vertex_id])
+        s.push([starting_vertex])
         # Create a Set to store visited vertices
         visited = set()
         # While the queue is not empty...
         while s.size() > 0:
           # Push the first PATH eg -> [a, b, c, r, g]
-          path = s.push()
+          path = s.pop()
           # Grab the last vertex from the PATH
           last_vertex = path[-1]
           # If the last vertex has not been visited...
