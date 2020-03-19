@@ -30,7 +30,33 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
-
+# Implement dft path 
+# Create an empty stack
+s = Stack()
+# push A PATH TO the starting vertex id 
+s.push([starting_vertex_id])
+# Create a Set to store visited vertices
+visited = set()
+# While the queue is not empty...
+while s.size() > 0:
+  # Push the first PATH eg -> [a, b, c, r, g]
+    path = s.push()
+    # Grab the last vertex from the PATH
+    last_vertex = path[-1]
+          # If the last vertex has not been visited...
+    if last_vertex not in visited:
+            # CHECK IF IT'S THE TARGET
+        if last_vertex == destination_vertex:
+            return path
+            # Mark it as visited...
+            # Then add A PATH TO its neighbors to the back of the stack
+        visited.add(last_vertex)
+        for neighbor in self.vertices[last_vertex]:
+              # create new path list
+            new_path = list(path)
+              # # APPEND THE NEIGHBOR TO THE BACK
+            new_path.append(neighbor)
+            s.push(new_path)
 
 # TRAVERSAL TEST
 visited_rooms = set()
